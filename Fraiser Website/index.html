@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraisure's Photo Gallery</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>Fraisure's Photos</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="html/about.html">About Fraisure</a></li>
+                <li><a href="html/gallery.html">Photo Gallery</a></li>
+                <li><a href="html/seasons.html">Seasonal Photos</a></li>
+                <li><a href="html/holidays.html">Holiday Photos</a></li>
+                <li><a href="html/favorite-places.html">Favorite Places</a></li>
+                <li><a href="html/team.html">Our Team</a></li>
+                <li><a href="#" id="cart-button"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to Fraisure's World</h2>
+                <p>Discover the adorable adventures of Fraisure through our exclusive photo collection</p>
+                <a href="html/gallery.html" class="cta-button">View Gallery</a>
+            </div>
+        </section>
+
+        <section class="featured-photos">
+            <div class="container">
+                <h2>Featured Photos</h2>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="photo-card">
+                            <div class="photo-placeholder">Photo 1</div>
+                            <h3>Spring Adventure</h3>
+                            <p>Fraisure's first spring day</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="photo-card">
+                            <div class="photo-placeholder">Photo 2</div>
+                            <h3>Summer Fun</h3>
+                            <p>Beach day memories</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="photo-card">
+                            <div class="photo-placeholder">Photo 3</div>
+                            <h3>Autumn Colors</h3>
+                            <p>Leaf pile adventures</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button id="close-cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">$0.00</span>
+            </div>
+            <button class="checkout-button">Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@fraisurephotos.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="col-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="html/about.html">About</a></li>
+                        <li><a href="html/gallery.html">Gallery</a></li>
+                        <li><a href="html/team.html">Our Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="copyright">&copy; 2024 Fraisure's Photos. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html> 

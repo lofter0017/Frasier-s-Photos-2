@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Fraisure - Photo Gallery</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>Fraisure's Photos</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html" class="active">About Fraisure</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="seasons.html">Seasonal Photos</a></li>
+                <li><a href="holidays.html">Holiday Photos</a></li>
+                <li><a href="favorite-places.html">Favorite Places</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="#" id="cart-button"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <div class="container">
+                <h2>Meet Fraisure</h2>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="about-image">
+                            <div class="photo-placeholder">Fraisure's Portrait</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="about-content">
+                            <h3>The Story of a Special Puppy</h3>
+                            <p>Fraisure is not just any puppy - he's a bundle of joy who brings smiles to everyone he meets. Born on a sunny spring day, Fraisure quickly became known for his playful personality and photogenic nature.</p>
+                            <p>His love for adventure and exploration has taken him to many beautiful places, each captured in our exclusive photo collection. From beach days to mountain hikes, Fraisure's enthusiasm for life is contagious.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="fraisure-facts">
+            <div class="container">
+                <h3>Fun Facts About Fraisure</h3>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="fact-card">
+                            <i class="fas fa-paw"></i>
+                            <h4>Favorite Activity</h4>
+                            <p>Playing fetch at the beach</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="fact-card">
+                            <i class="fas fa-bone"></i>
+                            <h4>Favorite Treat</h4>
+                            <p>Peanut butter cookies</p>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="fact-card">
+                            <i class="fas fa-heart"></i>
+                            <h4>Special Talent</h4>
+                            <p>Making friends everywhere he goes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="fraisure-gallery">
+            <div class="container">
+                <h3>Fraisure's Journey</h3>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="timeline-card">
+                            <div class="photo-placeholder">Puppy Days</div>
+                            <h4>First Steps</h4>
+                            <p>The beginning of many adventures</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="timeline-card">
+                            <div class="photo-placeholder">Growing Up</div>
+                            <h4>Learning & Growing</h4>
+                            <p>Discovering the world</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="timeline-card">
+                            <div class="photo-placeholder">Adventures</div>
+                            <h4>New Experiences</h4>
+                            <p>Exploring new places</p>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="timeline-card">
+                            <div class="photo-placeholder">Today</div>
+                            <h4>Making Memories</h4>
+                            <p>Creating lasting moments</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button id="close-cart" title="Close cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">$0.00</span>
+            </div>
+            <button class="checkout-button">Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@fraisurephotos.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="col-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="copyright">&copy; 2024 Fraisure's Photos. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/cart.js"></script>
+</body>
+</html> 

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Management - Fraisure's Photos</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .sales-section {
+            padding: 2rem 0;
+        }
+
+        .sales-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 1rem;
+        }
+
+        .action-btn:hover {
+            background: #0056b3;
+        }
+
+        .export-btn {
+            background: #28a745;
+        }
+
+        .export-btn:hover {
+            background: #218838;
+        }
+
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+        }
+
+        .sales-table th,
+        .sales-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .sales-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .sales-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .status-completed {
+            background: #28a745;
+            color: white;
+        }
+
+        .status-pending {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .status-cancelled {
+            background: #dc3545;
+            color: white;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 0.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+        }
+
+        .date-range {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .date-range input {
+            width: 150px;
+        }
+
+        .sales-summary {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .summary-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .summary-card h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .summary-card .value {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #007bff;
+        }
+
+        .summary-card .label {
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="main-nav">
+            <div class="logo">
+                <h1>Fraisure's Photos</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="about.html">About Fraisure</a></li>
+                <li><a href="gallery.html">Photo Gallery</a></li>
+                <li><a href="seasons.html">Seasonal Photos</a></li>
+                <li><a href="holidays.html">Holiday Photos</a></li>
+                <li><a href="favorite-places.html">Favorite Places</a></li>
+                <li><a href="team.html">Our Team</a></li>
+                <li><a href="inventory.html">Inventory</a></li>
+                <li><a href="sales.html" class="active">Sales</a></li>
+                <li><a href="#" id="cart-button"><i class="fas fa-shopping-cart"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="sales-section">
+            <div class="container">
+                <div class="sales-header">
+                    <h2>Sales Management</h2>
+                    <div>
+                        <button class="action-btn" onclick="refreshSalesData()">
+                            <i class="fas fa-sync-alt"></i> Refresh Data
+                        </button>
+                        <button class="action-btn export-btn" onclick="exportSalesData()">
+                            <i class="fas fa-file-export"></i> Export to CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sales-summary">
+                    <div class="summary-card">
+                        <h3>Total Sales</h3>
+                        <div class="value" id="total-sales">$0.00</div>
+                        <div class="label">All time</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Orders</h3>
+                        <div class="value" id="total-orders">0</div>
+                        <div class="label">Total orders</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Average Order Value</h3>
+                        <div class="value" id="avg-order-value">$0.00</div>
+                        <div class="label">Per order</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Pending Orders</h3>
+                        <div class="value" id="pending-orders">0</div>
+                        <div class="label">Awaiting fulfillment</div>
+                    </div>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter" onchange="filterSalesData()">
+                            <option value="all">All Statuses</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-range">Date Range</label>
+                        <div class="date-range">
+                            <input type="date" id="start-date" title="Start date" onchange="filterSalesData()">
+                            <span>to</span>
+                            <input type="date" id="end-date" title="End date" onchange="filterSalesData()">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <label for="customer-filter">Customer</label>
+                        <input type="text" id="customer-filter" placeholder="Search by name or email" onkeyup="filterSalesData()">
+                    </div>
+                </div>
+
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Date</th>
+                            <th>Customer</th>
+                            <th>Items</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="sales-table-body">
+                        <!-- Sales data will be dynamically added here -->
+                    </tbody>
+                </table>
+                <div id="no-data-message" class="no-data" style="display: none;">
+                    No sales data available. Try refreshing the data.
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button id="close-cart" title="Close cart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cart-total-amount">$0.00</span>
+            </div>
+            <button class="checkout-button">Checkout</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@fraisurephotos.com</p>
+                    <p>Phone: (555) 123-4567</p>
+                </div>
+                <div class="col-4">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="team.html">Our Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-4">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <p class="copyright">&copy; 2024 Fraisure's Photos. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/data.js"></script>
+    <script>
+        // Sales data management
+        let salesData = [];
+        let filteredSalesData = [];
+
+        // Initialize sales data from localStorage or data.js
+        function initializeSalesData() {
+            // Try to get sales data from localStorage first
+            const storedSalesData = localStorage.getItem('fraisureSalesData');
+            if (storedSalesData) {
+                salesData = JSON.parse(storedSalesData);
+            } else {
+                // If no data in localStorage, use the sample data from data.js
+                salesData = photoInventory.orders || [];
+                // Save to localStorage for future use
+                localStorage.setItem('fraisureSalesData', JSON.stringify(salesData));
+            }
+            
+            // Initialize filtered data with all sales
+            filteredSalesData = [...salesData];
+            
+            // Update the UI
+            updateSalesSummary();
+            populateSalesTable();
+        }
+
+        // Update sales summary statistics
+        function updateSalesSummary() {
+            const totalSales = salesData.reduce((sum, order) => sum + order.total, 0);
+            const totalOrders = salesData.length;
+            const avgOrderValue = totalOrders > 0 ? totalSales / totalOrders : 0;
+            const pendingOrders = salesData.filter(order => order.status === 'pending').length;
+
+            document.getElementById('total-sales').textContent = `$${totalSales.toFixed(2)}`;
+            document.getElementById('total-orders').textContent = totalOrders;
+            document.getElementById('avg-order-value').textContent = `$${avgOrderValue.toFixed(2)}`;
+            document.getElementById('pending-orders').textContent = pendingOrders;
+        }
+
+        // Populate sales table with data
+        function populateSalesTable() {
+            const tableBody = document.getElementById('sales-table-body');
+            const noDataMessage = document.getElementById('no-data-message');
+            
+            tableBody.innerHTML = '';
+            
+            if (filteredSalesData.length === 0) {
+                noDataMessage.style.display = 'block';
+                return;
+            }
+            
+            noDataMessage.style.display = 'none';
+            
+            filteredSalesData.forEach(order => {
+                const row = document.createElement('tr');
+                
+                // Format date
+                const orderDate = new Date(order.date);
+                const formattedDate = orderDate.toLocaleDateString();
+                
+                // Get status badge class
+                let statusClass = '';
+                switch(order.status) {
+                    case 'completed':
+                        statusClass = 'status-completed';
+                        break;
+                    case 'pending':
+                        statusClass = 'status-pending';
+                        break;
+                    case 'cancelled':
+                        statusClass = 'status-cancelled';
+                        break;
+                }
+                
+                row.innerHTML = `
+                    <td>${order.id}</td>
+                    <td>${formattedDate}</td>
+                    <td>${order.customer.name}<br><small>${order.customer.email}</small></td>
+                    <td>${order.items.length} items</td>
+                    <td>$${order.total.toFixed(2)}</td>
+                    <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                    <td>
+                        <button class="action-btn" onclick="viewOrderDetails('${order.id}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn" onclick="updateOrderStatus('${order.id}')">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Filter sales data based on selected filters
+        function filterSalesData() {
+            const statusFilter = document.getElementById('status-filter').value;
+            const startDate = document.getElementById('start-date').value;
+            const endDate = document.getElementById('end-date').value;
+            const customerFilter = document.getElementById('customer-filter').value.toLowerCase();
+            
+            filteredSalesData = salesData.filter(order => {
+                // Status filter
+                if (statusFilter !== 'all' && order.status !== statusFilter) {
+                    return false;
+                }
+                
+                // Date range filter
+                if (startDate && endDate) {
+                    const orderDate = new Date(order.date);
+                    const start = new Date(startDate);
+                    const end = new Date(endDate);
+                    end.setHours(23, 59, 59, 999); // End of day
+                    
+                    if (orderDate < start || orderDate > end) {
+                        return false;
+                    }
+                }
+                
+                // Customer filter
+                if (customerFilter) {
+                    const customerName = order.customer.name.toLowerCase();
+                    const customerEmail = order.customer.email.toLowerCase();
+                    
+                    if (!customerName.includes(customerFilter) && !customerEmail.includes(customerFilter)) {
+                        return false;
+                    }
+                }
+                
+                return true;
+            });
+            
+            populateSalesTable();
+        }
+
+        // View order details
+        function viewOrderDetails(orderId) {
+            const order = salesData.find(o => o.id === orderId);
+            if (order) {
+                let itemsList = '';
+                order.items.forEach(item => {
+                    const photo = photoInventory.photos.find(p => p.id === item.photoId);
+                    const photoTitle = photo ? photo.title : 'Unknown Photo';
+                    itemsList += `${photoTitle} (${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}\n`;
+                });
+                
+                alert(`Order Details:\n\nOrder ID: ${order.id}\nDate: ${order.date}\nCustomer: ${order.customer.name}\nEmail: ${order.customer.email}\n\nItems:\n${itemsList}\nTotal: $${order.total.toFixed(2)}\nStatus: ${order.status}`);
+            }
+        }
+
+        // Update order status
+        function updateOrderStatus(orderId) {
+            const order = salesData.find(o => o.id === orderId);
+            if (order) {
+                const newStatus = prompt(`Current status: ${order.status}\nEnter new status (completed, pending, cancelled):`, order.status);
+                
+                if (newStatus && ['completed', 'pending', 'cancelled'].includes(newStatus.toLowerCase())) {
+                    order.status = newStatus.toLowerCase();
+                    
+                    // Update in localStorage
+                    localStorage.setItem('fraisureSalesData', JSON.stringify(salesData));
+                    
+                    // Update UI
+                    updateSalesSummary();
+                    populateSalesTable();
+                }
+            }
+        }
+
+        // Refresh sales data
+        function refreshSalesData() {
+            // In a real application, this would fetch data from a server
+            // For this demo, we'll just reload from localStorage
+            initializeSalesData();
+            alert('Sales data refreshed!');
+        }
+
+        // Export sales data to CSV
+        function exportSalesData() {
+            if (filteredSalesData.length === 0) {
+                alert('No data to export!');
+                return;
+            }
+            
+            // Create CSV content
+            let csvContent = 'Order ID,Date,Customer Name,Customer Email,Items,Total,Status\n';
+            
+            filteredSalesData.forEach(order => {
+                const itemsCount = order.items.length;
+                const itemsText = order.items.map(item => {
+                    const photo = photoInventory.photos.find(p => p.id === item.photoId);
+                    return `${photo ? photo.title : 'Unknown'} (${item.quantity})`;
+                }).join('; ');
+                
+                csvContent += `${order.id},${order.date},${order.customer.name},${order.customer.email},"${itemsText}",${order.total},${order.status}\n`;
+            });
+            
+            // Create a Blob with the CSV content
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            
+            // Create a download link
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            
+            // Set up the download link
+            link.setAttribute('href', url);
+            link.setAttribute('download', `fraisure_sales_${new Date().toISOString().split('T')[0]}.csv`);
+            link.style.visibility = 'hidden';
+            
+            // Add to document, click it, and remove it
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initializeSalesData);
+    </script>
+</body>
+</html> 
